@@ -1,0 +1,8 @@
+# local tooling state
+.remember/
+.claude/settings.local.json
+
+# editor / OS noise
+.DS_Store
+*.swp
+__pycache__/
