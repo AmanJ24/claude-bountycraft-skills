@@ -18,8 +18,18 @@
 - [x] sources.md complete (29 sources + extracted-note links)
 - [ ] Committed
 
+### IDOR
+- [x] 1. Find: 25 candidates in `sources/idor/_candidates.md` (2026-11-16)
+- [x] 2. Filter: 25 kept (#18, #21 added from user downloads)
+- [x] 3. Scrape: 25/25 saved in `sources/idor/` (2026-11-16; 23 full, 2 partial #4 #8)
+- [x] 4. Extract: 25 notes in `extracted/idor/` (2026-11-16; tags normalized, verbatim overlap removed)
+- [x] 5. Synthesize: SKILL.md + 5 references (Opus, 2026-11-16)
+- [x] 6. Test: 5 evals run live (agent, user-authorized, 2026-11-16). PASS 5/5: static-reference IDOR, userid-param read, password-disclosure->ATO->delete, GraphQL private post, mass assignment.
+- [ ] 7. Iterate
+- [x] sources.md complete
+- [ ] Committed
+
 ### Backlog
-- [ ] IDOR
 - [ ] XSS (stored/reflected/DOM)
 - [ ] Auth bypass / broken access control
 - [ ] Race conditions
