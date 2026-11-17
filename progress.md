@@ -35,8 +35,8 @@
 - [x] 3. Scrape: 30/30 saved in `sources/xss/` (2026-11-16; no paywalls)
 - [x] 4. Extract: 30 notes in `extracted/xss/` (2026-11-16; payloads preserved; Sonnet safeguards flagged 3 batches so extraction moved to Opus)
 - [x] 5. Synthesize: SKILL.md + 5 references (Opus, 2026-11-16)
-- [~] 6. Test (IN PROGRESS, paused at usage limit 2026-11-16): PASS template-literal + prototype-pollution DOM XSS (green banner). EXPERT AngularJS-sandbox+CSP: technique PROVEN (CSP bypass + sandbox escape + arbitrary JS via document.title) but green banner blocked by non-dismissable alert dialog in automation. Not yet run: sandbox-without-strings (EXPERT), web-message DOM XSS.
-- [ ] 7. Iterate
+- [x] 6. Test (5 evals run live, agent, user-authorized, 2026-11-16/17): case-01 template-literal PASS (green banner); case-02 prototype-pollution DOM XSS PASS (green banner); case-03 EXPERT AngularJS-sandbox+CSP: technique PROVEN (CSP bypass + sandbox escape + arbitrary JS via document.title), green banner blocked by non-dismissable alert dialog in automation; case-04 EXPERT AngularJS-sandbox-without-strings: GAP FOUND then FIXED -> PASS (green banner); case-05 web-message DOM XSS PASS (green banner, exploit-server delivery). 4/5 green banners + 1 technique-proven.
+- [x] 7. Iterate (2026-11-17): case-04 surfaced a real gap (all skill AngularJS escapes used quoted strings; the Expert "without strings"/no-$eval lab defeats them). Added the string-free, $eval-free charAt-override + fromCharCode escape and the "$parse may read a parameter NAME" sink insight to advanced-techniques.md + contexts-and-payloads.md; re-validated -> lab solved.
 - [x] sources.md complete
 - [ ] Committed
 
