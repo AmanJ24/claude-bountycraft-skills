@@ -30,6 +30,16 @@ Invariant: later steps run only after their prerequisites, and each runs once.
 - Order-confirmation that reads an order id set in an earlier step without rechecking ownership (note 08, Intigriti).
 - Double-processed/non-idempotent payment callbacks corrupting state (note 18, PortSwigger license; note 11, Stripe).
 
+## Payment-gateway integration (dedicated payment-bypass surface)
+Invariant: an order is marked paid only after the gateway confirms the correct amount/currency, verified by the merchant server.
+The merchant-gateway integration (Stripe/PayPal/PayU/Razorpay) has four trust points, each a separate test (taxonomy note 28):
+- **Client-sent price/amount/currency** in the payment request: tamper to 0.01, or swap currency (GBP -> IRR/VND) while the amount check passes (notes 28, 01, 15).
+- **Return URL (client-side callback)**: if reaching `/payment/success?order_id=` is treated as proof, forced-browse straight to it with your own pending order id (`/checkout/complete?status=paid&orderid=8872`) (note 28).
+- **Webhook / IPN (server-to-server)**: forge the provider's notification to the merchant webhook (`POST /api/webhooks/<provider>` with `status:"success"`) when there is no signature/HMAC check or IP allowlist. An under-tested surface because the user never touches it; a subscription feature is the cue (note 27, Jack Cable).
+- **Relayed gateway callback**: when the gateway result is relayed through the client, capture a genuine "success" callback (with its valid gateway hash and ids) from one real minimal payment, then replay/adapt it for a new unpaid order. Flipping failure->success without a valid hash fails; a captured valid success works (note 29, PayU/government site).
+- **Confirm-payment race** on wallet top-ups: parallel "confirm" requests credit one payment multiple times (note 28; see the race-conditions boundary in escalation-and-impact.md).
+Defenses to cite: reprice from the DB by item id; call the gateway's verify-transaction API server-side before fulfillment; verify webhook signature + IP + idempotency; checksum form data.
+
 ## OTP / 2FA / signup / claim flows
 Invariant: the action proceeds only after the right actor proves control of the right resource.
 - Omit the verification field entirely to reach an unvalidated path (note 19, hover.com OTP).

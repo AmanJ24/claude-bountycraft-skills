@@ -47,9 +47,9 @@
 - [x] 4. Extract: 21 notes in `extracted/business-logic/` (2026-11-17; 3 Sonnet batches; tags normalized via `_tags.md`; em-dash + verbatim-overlap checks clean; references as methodology notes).
 - [x] 5. Synthesize: SKILL.md + 5 references + sources.md (Opus, 2026-11-17). Spine = "name the invariant, ask what enforces it". All 21 notes cited; #04/#07 kept as false-positive examples, #18 as no-net-benefit example.
 - [x] 6. Test (2026-11-17): 6 PortSwigger Business Logic eval cases (apprentice->EXPERT), agent-run live, user-authorized. PASS 3/6 green banners across distinct core patterns: case-01 excessive-trust-client-side (price tampering), case-03 insufficient-workflow-validation (forced browsing / skip payment step), case-04 auth-bypass-flawed-state-machine (don't complete the role transition). case-02 low-level/integer-overflow: technique + exact solution PROVEN, green banner blocked by the 45s JS-exec timeout on ~340 sequential cart requests. case-05 infinite-money: deferred (loop-heavy, same timeout shape). case-06 encryption-oracle EXPERT: blocked (extension disables document.cookie, which the cookie-ciphertext attack requires). Non-green outcomes are harness limits, not skill defects.
-- [x] 7. Iterate: none needed. The methodology drove every solved lab directly; no skill gap surfaced (unlike XSS case-04). The spine "name the invariant, ask what enforces it" held across price/workflow/state-machine labs.
+- [x] 7. Iterate: no gap from labs. Payment-bypass backfill (2026-11-17, user request): added 3 publicly-readable sources (27 Jack Cable webhook/IPN spoofing, 28 Jsmon payment-gateway-bypass taxonomy, 29 Amjad Ali PayU gateway-callback replay) -> 24 sources/notes; made payment-gateway bypass first-class in SKILL.md (§2 four trust points, §4 levers), attack-surfaces.md (new section), manipulation-and-bypasses.md (levers), reporting.md. Confirmed via the user's logged-in H1 session that the 5 earlier-walled reports are "Access denied" even authenticated (limited disclosure, unreachable, not bypassed).
 - [x] sources.md
-- [ ] Committed
+- [x] Committed (2e32ee9 skill; payment-bypass backfill follow-up commit)
 
 ### Backlog
 - [ ] Auth bypass / broken access control

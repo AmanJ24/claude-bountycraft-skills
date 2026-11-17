@@ -60,3 +60,13 @@ Notes:
   lost with the New Relic trio.
 - Bounties captured: 11 Stripe $5,000 (+2x$50 retest); 20 Eternal $3,250; 25 $1,500; others awarded
   with amount hidden (01, 13, 15, 16) or none/informative (04, 07, 14, 18, 21).
+
+## Payment-bypass backfill (2026-11-17)
+After the skill was committed (2e32ee9), added 3 publicly-readable payment-bypass sources to deepen
+that sub-variant (user asked specifically about payment bypass):
+- 27 Jack Cable / Lightning Security: webhook/IPN spoofing (forged {"status":"success"} to the merchant webhook).
+- 28 Jsmon: payment-gateway-bypass taxonomy (param tampering, return-URL manipulation, webhook spoofing, currency swap, confirm-payment race).
+- 29 Amjad Ali (PayU/government site): replaying a captured real gateway success callback (valid hash) for a new unpaid order.
+Also confirmed via the user's logged-in HackerOne session that the 5 previously-walled reports
+(02 Shipt, 03 Adobe, 17/22/24 New Relic) are "Access denied" even when authenticated = limited
+disclosure, genuinely unreachable, not bypassed.

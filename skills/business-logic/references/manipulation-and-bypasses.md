@@ -46,5 +46,14 @@ Edit any field the client sends, including hidden and disabled form fields.
 ## Event-vs-final-state trust
 - Trigger a credit/entitlement on an upstream event that can revert or is not yet settled: a reverted smart-contract internal transfer still credited off-chain (note 09, Coinbase); a payment callback fired twice (note 18).
 
+## Payment-gateway bypass levers
+When checkout hands off to a gateway (Stripe/PayPal/PayU/Razorpay), test each trust point the merchant may not re-verify (taxonomy note 28):
+- **Webhook / IPN spoofing**: POST the provider's notification body straight to the merchant webhook if the signature/IP is unchecked, e.g. `POST /api/webhooks/stripe` with `{"payment":{"status":"success","provider":"stripe"},"id":"..."}` (note 27) or `POST /api/webhooks/paypal` with `{"event":"payment.captured","data":{"order_id":"MY_PENDING_ORDER","status":"completed"}}` (note 28). Find the endpoint via JS/GitHub search for "webhook"/"payment" or by guessing `/api/<provider>/webhook`.
+- **Return-URL / client-callback forced browse**: if reaching the success URL is treated as proof of payment, navigate straight to it with your own pending order id (`/checkout/complete?status=paid&orderid=8872`), skipping the payment page (note 28).
+- **Relayed gateway-callback replay**: when the gateway result is relayed through the client, make one genuine minimal payment, capture its real success callback (valid gateway `hash` and ids), then replay/adapt it for a new unpaid order, keeping the signed fields (`mihpayid`, `txnid`, `addedon`, `hash` in the PayU case). Naive failure->success edits fail without a valid hash; a captured valid success is accepted (note 29).
+- **Currency swap**: change the currency code while the amount passes its check (note 28; see the currency-confusion entry above).
+- **Confirm-payment race**: fire parallel confirm-payment requests on wallet top-ups to credit one payment many times (note 28; the race is its own class, see escalation-and-impact.md).
+Each is only a finding if the merchant acts without server-side verification against the gateway's verify-transaction API.
+
 ## Mass assignment (adjacent)
 - Add unexpected privileged fields to a create/update request (`role=admin`, `permissions=[*]`) the API did not allowlist (note 26, bitpanic). Overlaps the `idor` skill's mass-assignment section.

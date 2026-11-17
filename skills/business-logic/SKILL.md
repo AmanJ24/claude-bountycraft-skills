@@ -33,6 +33,7 @@ Feature classes that actually produced findings. Full list with example reports 
 - **Coupons / promos / referrals / rewards**: single-use offers, per-user limits, expiry, stacking, personal (birthday) coupons, free-trial resets (Stripe, OWASP, Intigriti, Curve).
 - **Subscription / plan / role gating**: paid-only roles or features gated only in the UI or by a response flag (Lovable `access_level`, Streamlabs response flip, Curve, secrets-mgmt).
 - **Multi-step and payment workflows**: skip the payment or approval step, call the completion endpoint directly, replay the gateway handoff (PortSwigger insufficient-workflow labs, WooCommerce, OWASP).
+- **Payment-gateway integration (the dedicated payment-bypass surface)**: a checkout that hands off to Stripe/PayPal/PayU/Razorpay has four trust points the merchant may fail to re-verify, each its own test: the **client-sent price/amount/currency**, the **return URL** (treating `/payment/success?order_id=` as proof), the **server-side webhook/IPN** (forgeable if the signature/IP is not checked), and the **relayed gateway callback** (a captured real "success" callback, with its valid gateway hash, replayed for a new unpaid order). Plus a **confirm-payment race** on wallet top-ups (webhook note 27, taxonomy note 28, PayU callback-replay note 29).
 - **OTP / 2FA / signup / claim flows**: omit the verification field, reuse a token across resources, reach the resource by a path that skips the gate (hover.com, Eternal/Zomato, HackerOne 2FA-collaborator).
 - **Balance / credit / ledgers**: credit granted on an unconfirmed or reverted upstream event; refund logic that misses prior refunds (Coinbase, Intigriti).
 - **Licensing / seats / billing**: double-processed payment callbacks, non-idempotent purchase handling, seats-vs-price rounding (Krisp, PortSwigger license).
@@ -64,6 +65,7 @@ The levers that turn a valid request into a rule violation. Summary; full catalo
 - **Replay and race.** Re-run one-time actions; then race any check-then-act with parallel or single-packet requests (Stripe, OWASP).
 - **Token unbinding.** Reuse a verification token/OTP issued for your own object against someone else's (Eternal).
 - **Event-vs-final-state trust.** Trigger a credit/entitlement on an upstream event that later reverts or never settles (Coinbase).
+- **Payment-gateway bypass levers** (full detail in `references/manipulation-and-bypasses.md`): forge the **webhook/IPN** (`{"status":"success"}` straight to `/api/webhooks/<provider>` when the signature/IP is unchecked, note 27); **forced-browse the return URL** (`/checkout/complete?status=paid&orderid=`) when reaching it is treated as payment; **replay a captured real success callback** (keep the gateway hash and ids, note 29) when the merchant trusts the relayed result instead of calling the gateway's verify-transaction API; swap the **currency** while the amount check passes.
 
 ## 5. Common false positives
 

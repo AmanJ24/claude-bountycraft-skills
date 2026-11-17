@@ -1,6 +1,6 @@
 # Business Logic skill: sources
 
-Every claim in `SKILL.md` and `references/` should trace back to an entry here. Per-writeup notes are in `../../extracted/business-logic/`. 21 sources (19 full/usable, 2 partial). Five candidates were dropped to the HackerOne sign-in wall / no-longer-public status and not bypassed (see `../../sources/business-logic/_candidates.md`).
+Every claim in `SKILL.md` and `references/` should trace back to an entry here. Per-writeup notes are in `../../extracted/business-logic/`. 24 sources (21 original + 3 payment-bypass backfill rows 27-29). Five candidates were dropped to the HackerOne sign-in wall / no-longer-public status and not bypassed (confirmed 2026-11-17: all five return "Access denied" even to a logged-in HackerOne account, i.e. limited disclosure, so they are genuinely unreachable). See `../../sources/business-logic/_candidates.md`.
 
 | # | Title | Author | URL | Date | Disclosed report | Bounty | Extracted note |
 |---|-------|--------|-----|------|------------------|--------|----------------|
@@ -25,6 +25,9 @@ Every claim in `SKILL.md` and `references/` should trace back to an entry here. 
 | 23 | Examples of business logic vulnerabilities | PortSwigger Web Security Academy | https://portswigger.net/web-security/logic-flaws/examples | n/a | none | n/a (reference + lab taxonomy) | `extracted/business-logic/23-portswigger-logic-flaws-examples.md` |
 | 25 | $1,500 Bounty: Business Logic Flaw in Project Secrets Management | Abhi Sharma (@a13h1) | https://infosecwriteups.com/1-500-bounty-business-logic-flaw-in-project-secrets-management-4b985175071e | 2025-09-19 | none | $1,500 | `extracted/business-logic/25-infosecwriteups-secrets-mgmt-ui-api-mismatch.md` |
 | 26 | Top 10 Overlooked Business Logic Flaws in Web Applications | Spectat0rguy (bitpanic) | https://bitpanic.medium.com/top-10-overlooked-business-logic-flaws-in-web-applications-6745d42f3786 | 2025-01-19 | none | n/a (reference) | `extracted/business-logic/26-medium-bitpanic-top10-overlooked-bl.md` |
+| 27 | Bypassing Payments Using Webhooks | Jack Cable (Lightning Security) | https://lightningsecurity.io/blog/bypassing-payments-using-webhooks/ | unknown | none | not stated | `extracted/business-logic/27-lightningsecurity-webhook-payment-bypass.md` |
+| 28 | What is Payment Gateway Bypass? Ways to Exploit, Examples and Impact | Nadeem Ahmad (Jsmon) | https://blogs.jsmon.sh/what-is-payment-gateway-bypass-ways-to-exploit-examples-and-impact/ | 2026-03-09 | none | n/a (reference) | `extracted/business-logic/28-jsmon-payment-gateway-bypass-taxonomy.md` |
+| 29 | A High-Impact Payment Bypass on Government Website | Amjad Ali (@amjadali110) | https://amjadali110.medium.com/a-high-impact-payment-bypass-on-government-website-a-tale-of-business-logic-flaw-exploitation-b158feb7826a | 2023-08-10 | none | not stated (engagement) | `extracted/business-logic/29-medium-amjadali-gateway-callback-replay.md` |
 
 Dropped (HackerOne sign-in wall / not publicly disclosed, not bypassed): Shipt #388564, Adobe #218748 (both redundant with price coverage), New Relic #200576 / #1089467 / #219356.
 

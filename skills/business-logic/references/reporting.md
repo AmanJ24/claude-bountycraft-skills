@@ -20,6 +20,7 @@ Logic flaws are disputed more than any other class, because the request is valid
 - **Pre-empt "intended" / "business decision".** Currency arbitrage (note 07) and the 2FA-collaborator scope (note 21) were ruled working-as-designed; for entitlement/policy classes, argue against the control's stated purpose and cite accepted precedent (note 14).
 - **Provide a video when flows differ in triage.** Mobile reproduction that redirects to a website confused triage until a video PoC was supplied (note 16).
 - **Expect duplicates on obvious vectors.** Plain amount tampering is heavily reported; lead with a non-obvious field or a larger impact (note 10).
+- **Payment bypass: name which trust point failed and prove fulfillment.** State precisely whether the merchant trusted the client price, the return URL, an unverified webhook/IPN, or a relayed gateway callback, and show the order was actually fulfilled (goods shipped / subscription active / receipt issued) without real payment (notes 27, 28, 29). For webhook forgery, note the missing signature/IP check; for callback replay, show the captured valid gateway hash was reused. Remediation to recommend: verify server-side against the gateway's verify-transaction API, and verify webhook signatures + idempotency.
 
 ## Redaction and safety
 - Use test accounts and test data only; never claim a real third party's resource, drain a real balance, or complete a real underpriced order for goods.
