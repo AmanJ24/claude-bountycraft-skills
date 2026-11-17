@@ -85,5 +85,7 @@ See `sources.md` for the full list (title, author, URL, disclosed report, bounty
 - `references/attack-surfaces.md`: every feature class with example reports
 - `references/testing-methodology.md`: step-by-step probing
 - `references/bypasses.md`: full filter-bypass catalogue with payload shapes
-- `references/exploitation-and-escalation.md`: metadata, file read, chaining, protocols
+- `references/exploitation-and-escalation.md`: metadata (AWS/GCP/Azure/ECS/k8s), file read, chaining, gopher-to-Redis and other protocols
 - `references/reporting.md`: write-up template
+
+**Related skills (as this toolkit grows):** SSRF commonly arrives through, or escalates into, another class. Renderer/markup SSRF overlaps with file-upload and XXE sinks; a `file://` read of a k8s service-account token turns SSRF into cluster API access; a gopher payload to internal Redis is an RCE path. When a sibling skill exists for the second half, use it.

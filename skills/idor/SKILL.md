@@ -92,4 +92,7 @@ See `sources.md` (title, author, URL, disclosed report, bounty) and `../../extra
 - `references/testing-methodology.md`: step-by-step, two-account workflow, the 5 questions
 - `references/bypasses.md`: id discovery + access-check bypass catalogue
 - `references/escalation-and-impact.md`: the read->mass ladder with examples
+- `references/chains.md`: named compositions (read->ATO, double-IDOR->financial, membership+mass-assignment->privesc, soft-delete persistence, IDOR->XSS)
 - `references/reporting.md`: write-up template
+
+**Related skills (as this toolkit grows):** a read-IDOR often composes with another class, so after confirming one, check the sibling skill for the second half. An id/email-change IDOR feeds the forgot-password/ATO path; a download/filename IDOR feeds response-context XSS (see the `xss` skill); a GraphQL id swap pairs with GraphQL-specific enumeration. See `references/chains.md`.

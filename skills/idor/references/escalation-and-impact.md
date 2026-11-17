@@ -31,6 +31,7 @@ The same id swap can be worth $50 or $10,500. The difference is the rung you dem
 - Aggregate cites PayPal $10,500 (all business accounts) and Shopify $5,000 (every merchant's billing) (note 21).
 
 ## Standard escalation chains
+Named, worked compositions are in `chains.md`. Short forms:
 - **Change-email -> forgot-password -> login.** The most repeated takeover chain. Check which field actually controls reset delivery (sometimes `username`, not `email`). (notes 01, 03, 10)
 - **Write IDOR that looks low -> minimal/invalid body -> error path leaks the object -> use leaked secret.** (note 06)
 - **Read id from archive/JWT/error -> replay against the object endpoint -> repeat across harvested ids for scale.** (notes 16, 18)
