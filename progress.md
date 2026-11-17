@@ -40,10 +40,21 @@
 - [x] sources.md complete
 - [ ] Committed
 
+### Business Logic
+- [x] 1. Find: 24 candidates in `sources/business-logic/_candidates.md` (2026-11-17), spanning price manipulation (negative qty, fraction/rounding, param tampering, currency confusion), workflow/state-machine bypass, premium/subscription/license bypass, OTP/2FA/auth-flow logic, discount/coupon abuse, balance/credit manipulation, privilege/role logic.
+- [x] 2. Filter: 24 kept (filtered out the keyword-noise C-function bugs from the curated H1 list); 4 are methodology/taxonomy references (Intigriti x2, OWASP cheat sheet, PortSwigger examples).
+- [x] 3. Scrape: 21 sources saved in `sources/business-logic/` (2026-11-17; 19 full/usable, 2 partial #09 #10). Dropped 5 to the HackerOne sign-in wall / not-public (02 Shipt, 03 Adobe, both redundant; 17/22/24 New Relic). Backfilled 2 (#25 infosecwriteups UI-vs-API $1,500, #26 bitpanic taxonomy). See `_candidates.md` scrape-resolution.
+- [x] 4. Extract: 21 notes in `extracted/business-logic/` (2026-11-17; 3 Sonnet batches; tags normalized via `_tags.md`; em-dash + verbatim-overlap checks clean; references as methodology notes).
+- [x] 5. Synthesize: SKILL.md + 5 references + sources.md (Opus, 2026-11-17). Spine = "name the invariant, ask what enforces it". All 21 notes cited; #04/#07 kept as false-positive examples, #18 as no-net-benefit example.
+- [x] 6. Test (2026-11-17): 6 PortSwigger Business Logic eval cases (apprentice->EXPERT), agent-run live, user-authorized. PASS 3/6 green banners across distinct core patterns: case-01 excessive-trust-client-side (price tampering), case-03 insufficient-workflow-validation (forced browsing / skip payment step), case-04 auth-bypass-flawed-state-machine (don't complete the role transition). case-02 low-level/integer-overflow: technique + exact solution PROVEN, green banner blocked by the 45s JS-exec timeout on ~340 sequential cart requests. case-05 infinite-money: deferred (loop-heavy, same timeout shape). case-06 encryption-oracle EXPERT: blocked (extension disables document.cookie, which the cookie-ciphertext attack requires). Non-green outcomes are harness limits, not skill defects.
+- [x] 7. Iterate: none needed. The methodology drove every solved lab directly; no skill gap surfaced (unlike XSS case-04). The spine "name the invariant, ask what enforces it" held across price/workflow/state-machine labs.
+- [x] sources.md
+- [ ] Committed
+
 ### Backlog
-- [ ] XSS (stored/reflected/DOM)
 - [ ] Auth bypass / broken access control
 - [ ] Race conditions
+- [ ] SQLi, SSTI
 
 ## Future (not in pilot, do not build without explicit ask)
 - Phase 2: assistive active testing (human fires requests)
