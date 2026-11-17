@@ -51,9 +51,19 @@
 - [x] sources.md
 - [x] Committed (2e32ee9 skill; payment-bypass backfill follow-up commit)
 
+### Race Conditions
+- [x] 1. Find: 20 candidates in `sources/race-conditions/_candidates.md` (2026-11-17), research-weighted (single-packet attack is the core technique): Kettle "Smashing the state machine" + single-packet-attack paper, PortSwigger topic, Flatt first-sequence-sync (expert), YesWeHack/Hackcraft/dev.to guides, Turbo Intruder docs; + 8 H1 reports (coupon/faucet/follow/invite/flag/etc) + practitioner writeups. Sub-variants: limit overrun, multi-endpoint, single-endpoint, partial-construction, rate-limit/OTP-brute bypass, double-spend, social-action, auth-flow token races.
+- [x] 2. Filter: 20 kept (research spine reliably public; H1 reports may hit the sign-in/limited-disclosure wall as in business-logic).
+- [x] 3. Scrape: 20 sources in `sources/race-conditions/` (2026-11-17; 19 full, 1 paywalled #19 xalgord preview-only, not bypassed). All 8 H1 reports came through full this run (coupon, Cosmos faucet $5k total, Slack survey, follow, undeletable member, invite-team, retest ~$2.1k, flag submission).
+- [x] 4. Extract: 19 notes in `extracted/race-conditions/` (2026-11-17; 3 Sonnet batches + note 04 hand-written after a Sonnet safeguard blocked the first-sequence-sync research; tags normalized via _tags.md; em-dash + overlap checks clean). #19 dropped (redundant paywalled preview).
+- [x] 5. Synthesize: SKILL.md + 5 references + sources.md (Opus, 2026-11-17). Spine = "a race is a check-then-act gap / short-lived sub-state; make requests collide in it via the single-packet attack; predict/probe/prove". References cover attack-surfaces, the single-packet attack (+ last-byte sync + first-sequence-sync), predict/probe/prove methodology, the sub-variant taxonomy with cases, reporting. All 19 notes cited.
+- [x] 6. Test (2026-11-17): staged 5 eval cases. case-01 limit-overrun: PARTIAL race WON via 60-way parallel fetch burst (3 coupon stacks, $1337 -> $684.54, 51% off), proving the race + methodology, but green banner needs ~15 stacks in one sub-ms window = the single-packet attack, which this harness lacks (Kettle: lab is "near-impossible using multiple packets"). cases 02-05: not attempted (require Burp "send group in parallel" / Turbo Intruder). Eval phase tooling-blocked by design, NOT a skill defect.
+- [x] 7. Iterate: none needed. Partial limit-overrun win validates the methodology; no skill gap surfaced. Full green-banner validation needs Burp + Turbo Intruder (documented in evals/README).
+- [x] sources.md
+- [ ] Committed
+
 ### Backlog
 - [ ] Auth bypass / broken access control
-- [ ] Race conditions
 - [ ] SQLi, SSTI
 
 ## Future (not in pilot, do not build without explicit ask)
