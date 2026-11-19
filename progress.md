@@ -76,11 +76,11 @@
 ### SQL Injection (in progress, started 2026-11-19)
 - [x] 1. Find + 2. Filter: 24 candidates in `sources/sqli/_candidates.md`. Scope = classic SQLi end to end (in-band error/UNION, blind boolean/time, OOB/OAST, second-order, contexts incl. header/JSON/GraphQL/ORDER BY, auth bypass, WAF/filter bypass incl. JSON-operator, DBMS-specific escalation to file-read/RCE). NoSQLi cross-referenced, deferred to a future skill. 10 references (PortSwigger x4, HackTricks, YesWeHack, Claroty JSON-WAF, OWASP WAF-bypass, Invicti cheat/OOB) + 8 disclosed H1 findings + 6 technique writeups.
 - [x] 3. Scrape (inline as Opus per model rule, no Sonnet 5.5 subagents): 15 sources scraped+written, full sub-variant coverage (finalized at 15, within 15-25 target): 01 PS topic, 02 PS UNION, 03 PS blind, 04 PS cheat-sheet (DBMS arsenal), 06 yeswehack methodology, 07 claroty JSON-WAF bypass, 12 h1-435066-graphql (Critical 10, SET SESSION context scanners miss), 13 h1-1046084-automattic UNION-in-path (MariaDB), 15 h1-1109311-acronis POST log param (sqlmap -r, auth bypass), 18 h1-2599826-dod User-Agent header boolean-blind (MySQL/SharePoint), 19 velstadt error->sqlmap->xp_cmdshell RCE (CVSS 10), 20 0x3adly SQLi->RCE four DBMS (xp_cmdshell/UDF/plpythonu/Java), 21 netspi second-order + OOB DNS (xp_dirtree), 22 vaadata WAF bypass via cookie (less-inspected input), 24 boumriga time-based + ghauri. PAYWALLED: #23 iw-boolean-bootcamp (member-only, flagged to user 2026-11-19, pending Manual_downloads/). Deferred as redundant (not scraped): 05 hacktricks, 08 owasp-waf, 09/10 invicti (DBMS/OOB refs covered by 04+06), 11 grab-formidable, 14 impresscms-boolean, 16 acronis-923020, 17 dod-2597543-blind (blind covered by 03/18/22/24). Can backfill if a gap surfaces.
-- [ ] 4. Extract (15 notes; backfill #23 when downloaded)
-- [ ] 5. Synthesize (SKILL.md + 5 refs + sources.md)
+- [x] 4. Extract (2026-11-19, inline as Opus): 15 notes in `extracted/sqli/` + `_tags.md` (normalized). em-dash + Source/Tags checks clean. #23 to backfill when downloaded.
+- [x] 5. Synthesize (2026-11-19, Opus): SKILL.md (87 lines) + 5 references (detection-and-contexts, in-band-union-and-error, blind-oob-and-second-order, dbms-specific-and-escalation, waf-bypass-tooling-and-reporting) + sources.md. Spine = "find where your input lands in the query (context -> breakout) and how the app reveals the result (channel -> technique); then fingerprint the DBMS and escalate". All 15 notes cited. em-dash clean.
 - [ ] 6. Test (PortSwigger SQLi labs: login bypass, UNION column-count/text/data, examine-DB, blind conditional/error/time/OAST, XML-encoding filter bypass; Burp MCP enables OAST labs when connected)
 - [ ] 7. Iterate
-- [ ] sources.md
+- [x] sources.md
 - [ ] Committed
 
 ### Backlog
