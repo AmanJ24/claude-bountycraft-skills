@@ -2,6 +2,9 @@
 .remember/
 .claude/settings.local.json
 
+# user-supplied paywalled report downloads (not redistributable)
+Manual_downloads/
+
 # editor / OS noise
 .DS_Store
 *.swp

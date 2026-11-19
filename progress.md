@@ -62,9 +62,22 @@
 - [x] sources.md
 - [ ] Committed
 
+### Broken Access Control / Auth Bypass
+- [x] 1. Find: 24 candidates in `sources/access-control/_candidates.md` (2026-11-17). Scope = authorization/access-control core (OWASP A01) + auth bypass; object-level IDOR cross-referenced to the idor skill, not duplicated. Sub-variants: vertical privesc (unprotected admin, security-by-obscurity, parameter/role-based, horizontal-to-vertical), MFLAC (API authz while UI hides), 403/401 + URL/method/header bypass (X-Original-URL, path %2e, method), multi-step, referer-based, auth bypass (JWT alg=none/nonE/key-confusion, OAuth redirect_uri->ATO, ROPC/MFA/email-verify bypass).
+- [x] 2. Filter: 24 kept (research spine reliably public; H1 reports may hit the wall as in business-logic).
+- [x] 3. Scrape: 24 sources in `sources/access-control/` (2026-11-17; mostly full, 08/10/20 partial, 19 paywalled-preview dropped). All H1 reports readable this run. #17 renamed to tenant-claim-bypass (real Auth0 bug is tenant/claim confusion, not none-alg).
+- [~] 4. Extract (PAUSED 2026-11-17, over 90% of 5h limit): 10/23 notes written then all 3 Sonnet subagents FAILED on Sonnet 5.5 cyber-safeguards (`[cyber]`). DONE: 01,02,03,08,09,10,11,12,13,14 (verify 14 not truncated). TODO next session (re-run with SONNET 4.6, never 5.5): 15 MTN, 16 gitlab-oauth-token, 21 scheduler-admin, 22 nobody-to-admin, 23 vidoc-403, 07 synack, 04 hacktricks-oauth-ATO, 05 0xn3va-oauth, 06 chs-authbypass, 17 auth0-tenant-claim, 18 jwt-via-redirect-uri, 20 line-oauth (partial), 24 huntr-jwt. Then _tags.md, Step 5 synth, Step 6 eval (Burp MCP now available), commit.
+  - PAYWALLED to obtain from user (per new rule): #19 t4nv1 "How an OAuth 2.0 Redirect URI Bypass Led to Account Takeover and an $8,000 Bounty" https://medium.com/@t4nv1/how-an-oauth-2-0-redirect-uri-bypass-led-to-account-takeover-and-an-8-000-bounty-ad67ba4b0db6 (dropped as preview-only; user will download). Lower-value optional: race-conditions #19 xalgord single-packet (redundant with Kettle).
+- [ ] 5. Synthesize
+- [ ] 6. Test (PortSwigger Access control labs: unprotected admin, security-by-obscurity, parameter/role-based, password-disclosure, URL-based, method-based, multi-step, referer-based; ~10 labs). Burp MCP now available -> can validate header/method-bypass labs properly.
+- [ ] 7. Iterate
+- [ ] sources.md
+- [ ] Committed
+
 ### Backlog
-- [ ] Auth bypass / broken access control
-- [ ] SQLi, SSTI
+- [ ] SQLi
+- [ ] SSTI
+- Note (2026-11-17): user added Burp MCP -> single-packet attack (race), Collaborator/OOB (blind SSRF), Intruder (blind SQLi) now possible for evals. Offer to retro-validate race limit-overrun green banner.
 
 ## Future (not in pilot, do not build without explicit ask)
 - Phase 2: assistive active testing (human fires requests)
