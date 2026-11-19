@@ -7,9 +7,9 @@
 <br/>
 
 ![Phase](https://img.shields.io/badge/phase-research%20only-7F00FF?style=for-the-badge&logo=bugcrowd&logoColor=white)
-![Skills](https://img.shields.io/badge/skills-6-E100FF?style=for-the-badge)
-![Sources](https://img.shields.io/badge/sources-155-8B5CF6?style=for-the-badge)
-![Notes](https://img.shields.io/badge/extracted%20notes-134-A855F7?style=for-the-badge)
+![Skills](https://img.shields.io/badge/skills-7-E100FF?style=for-the-badge)
+![Sources](https://img.shields.io/badge/sources-170-8B5CF6?style=for-the-badge)
+![Notes](https://img.shields.io/badge/extracted%20notes-149-A855F7?style=for-the-badge)
 ![Validated](https://img.shields.io/badge/validated-PortSwigger%20labs-22C55E?style=for-the-badge&logo=portswigger&logoColor=white)
 
 </div>
@@ -36,7 +36,8 @@ The goal: hand an agent (or a human hunter) a single lean file that teaches how 
 | 💉 **XSS** | Cross Site Scripting | ✅ Complete | `██████████` 100% | 31 | 30 | 4/5 green + 1 proven |
 | 🧩 **Business Logic** | Price / workflow / payment | ✅ Complete | `██████████` 100% | 24 | 24 | 3/6 green |
 | 🏁 **Race Conditions** | Single packet / TOCTOU | ✅ Complete | `██████████` 100% | 20 | 19 | technique proven |
-| 🚪 **Access Control** | Auth bypass / privesc | 🚧 In progress | `██████░░░░` ~60% | 24 | 10 / 23 | pending |
+| 🚪 **Access Control** | Auth bypass / privesc | ✅ Complete | `██████████` 100% | 24 | 24 | **5/5 green** |
+| 🗄️ **SQL Injection** | In-band / blind / OOB / RCE | ✅ Complete | `██████████` 100% | 15 | 15 | 5/5 in-band green |
 
 <sub>Lab results are PortSwigger labs driven end to end. "proven" / "technique proven" means the method was demonstrated but the final green banner was blocked by a harness limit (out of band callbacks, the single packet attack, or JS execution timeouts), not by a gap in the skill. Details live in each skill's `evals/` folder.</sub>
 
@@ -83,7 +84,8 @@ pie showData
     "XSS" : 30
     "Business Logic" : 24
     "Race Conditions" : 19
-    "Access Control" : 10
+    "Access Control" : 24
+    "SQL Injection" : 15
 ```
 
 ---
@@ -154,11 +156,11 @@ gantt
     XSS               :done, 0, 1
     Business Logic    :done, 0, 1
     Race Conditions   :done, 0, 1
-    section In progress
-    Access Control    :active, 0, 1
+    Access Control    :done, 0, 1
+    SQL Injection     :done, 0, 1
     section Backlog
-    SQL Injection     :0, 1
     SSTI              :0, 1
+    NoSQL Injection   :0, 1
 ```
 
 **Phase 2 and 3 (future, gated):** assistive mode where a skill suggests an exact request for a human to fire manually, then a tightly controlled semi autonomous mode where the target is passed in explicitly each run, a scope file is checked before anything fires, and hard rate limits apply. Not built unless deliberately requested.
