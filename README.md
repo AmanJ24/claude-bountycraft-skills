@@ -8,8 +8,8 @@
 
 ![Phase](https://img.shields.io/badge/phase-research%20only-7F00FF?style=for-the-badge&logo=bugcrowd&logoColor=white)
 ![Skills](https://img.shields.io/badge/skills-7-E100FF?style=for-the-badge)
-![Sources](https://img.shields.io/badge/sources-170-8B5CF6?style=for-the-badge)
-![Notes](https://img.shields.io/badge/extracted%20notes-149-A855F7?style=for-the-badge)
+![Sources](https://img.shields.io/badge/sources-171-8B5CF6?style=for-the-badge)
+![Notes](https://img.shields.io/badge/extracted%20notes-150-A855F7?style=for-the-badge)
 ![Validated](https://img.shields.io/badge/validated-PortSwigger%20labs-22C55E?style=for-the-badge&logo=portswigger&logoColor=white)
 
 </div>
@@ -37,7 +37,7 @@ The goal: hand an agent (or a human hunter) a single lean file that teaches how 
 | 🧩 **Business Logic** | Price / workflow / payment | ✅ Complete | `██████████` 100% | 24 | 24 | 3/6 green |
 | 🏁 **Race Conditions** | Single packet / TOCTOU | ✅ Complete | `██████████` 100% | 20 | 19 | technique proven |
 | 🚪 **Access Control** | Auth bypass / privesc | ✅ Complete | `██████████` 100% | 24 | 24 | **5/5 green** |
-| 🗄️ **SQL Injection** | In-band / blind / OOB / RCE | ✅ Complete | `██████████` 100% | 15 | 15 | 5/5 in-band green |
+| 🗄️ **SQL Injection** | In-band / blind / OOB / RCE | ✅ Complete | `██████████` 100% | 16 | 16 | 5/5 in-band green |
 
 <sub>Lab results are PortSwigger labs driven end to end. "proven" / "technique proven" means the method was demonstrated but the final green banner was blocked by a harness limit (out of band callbacks, the single packet attack, or JS execution timeouts), not by a gap in the skill. Details live in each skill's `evals/` folder.</sub>
 
@@ -85,7 +85,7 @@ pie showData
     "Business Logic" : 24
     "Race Conditions" : 19
     "Access Control" : 24
-    "SQL Injection" : 15
+    "SQL Injection" : 16
 ```
 
 ---

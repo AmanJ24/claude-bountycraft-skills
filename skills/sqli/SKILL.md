@@ -5,7 +5,7 @@ description: Use when testing whether user input reaches a SQL query and can cha
 
 # SQL Injection
 
-Synthesized from 15 real writeups and references (the PortSwigger SQL injection topic/UNION/blind/cheat-sheet, the YesWeHack bug-bounty guide, Claroty's JSON-operator WAF bypass, a four-DBMS SQLi-to-RCE reference, and disclosed HackerOne/pentest findings: a Critical GraphQL SQLi in a SET SESSION context, a UNION in a URL path, a POST-param auth-bypass, a User-Agent-header blind SQLi, an MSSQL-to-xp_cmdshell RCE at CVSS 10, a second-order OOB-DNS exfiltration, and a WAF bypass that moved the injection to a cookie). Every pattern traces to `sources.md`. Disclosed impact ran from Medium (information disclosure) to Critical (full DB dump, auth bypass, and OS RCE).
+Synthesized from 16 real writeups and references (the PortSwigger SQL injection topic/UNION/blind/cheat-sheet, the YesWeHack bug-bounty guide, Claroty's JSON-operator WAF bypass, a four-DBMS SQLi-to-RCE reference, a boolean-blind extraction bootcamp, and disclosed HackerOne/pentest findings: a Critical GraphQL SQLi in a SET SESSION context, a UNION in a URL path, a POST-param auth-bypass, a User-Agent-header blind SQLi, an MSSQL-to-xp_cmdshell RCE at CVSS 10, a second-order OOB-DNS exfiltration, and a WAF bypass that moved the injection to a cookie). Every pattern traces to `sources.md`. Disclosed impact ran from Medium (information disclosure) to Critical (full DB dump, auth bypass, and OS RCE).
 
 **The one idea:** SQL injection is possible wherever user input is concatenated into a query so it can change the query's **structure**, not just its data. To find and exploit it, answer two questions: **(1) where does my input land in the query** (the *context*: a quoted string in `WHERE`, an `ORDER BY`, an `INSERT` tuple, a number, a `SET SESSION`, a header value that gets logged), which decides how to **break out**; and **(2) how does the app reveal the result** (the *channel*: reflected output, a DB error, a timing difference, nothing at all), which decides the **technique** (UNION, error-based, boolean, time, or out-of-band). Break out of the context, read back through the channel, fingerprint the DBMS, then escalate.
 
@@ -46,7 +46,7 @@ Find the context, break out, pick the channel, fingerprint, escalate, prove mini
 3. **Pick the channel by what the app reveals:**
    - Output reflected -> **UNION** (`references/in-band-union-and-error.md`): find the column count (`ORDER BY n` / `UNION SELECT NULL,...`), find a string column, read other tables.
    - A catchable DB error -> **error-based** (`CAST`/`EXTRACTVALUE`/conditional divide-by-zero).
-   - A visible true/false difference -> **boolean-blind**: extract one char at a time with `SUBSTRING` + binary search.
+   - A visible true/false difference (even a "username taken/available" flag) -> **boolean-blind**: confirm with `AND 1=1` vs `AND 1=2`, then extract one char at a time with `SUBSTRING` + ASCII binary search over `information_schema` and the target column (note 23).
    - Graceful errors, no difference -> **time-based**: conditional SLEEP/WAITFOR.
    - Async / nothing -> **out-of-band (OAST)**: DNS exfiltration (prefer it anyway; fast and direct). See `references/blind-oob-and-second-order.md`.
 4. **Fingerprint the DBMS** (version/error/time method that works identifies the engine) and pull its exact syntax from `references/dbms-specific-and-escalation.md`.
@@ -84,4 +84,4 @@ Lead with the injectable input, the context, and a minimal, non-destructive proo
 
 ## 7. Sources
 
-See `sources.md` for the full list (title, author, URL, disclosed-report link, bounty) behind every claim above, keyed to the extracted notes in `extracted/sqli/`. One member-only writeup (InfoSec boolean-blind bootcamp) is pending retrieval; the boolean technique it covers is already sourced from notes 03/18/22/24.
+See `sources.md` for the full list (title, author, URL, disclosed-report link, bounty) behind every claim above, keyed to the extracted notes in `extracted/sqli/`.
