@@ -71,10 +71,19 @@
 - [x] 6. Test (2026-11-19, agent-run live, user-authorized PortSwigger exception): 5 eval cases, **5/5 PASS green banners** across distinct skill branches. case-01 unprotected-admin (force-browse robots.txt -> /administrator-panel), case-02 user-role-in-profile (roleid:2 mass-assignment in body; swapped from the cookie-based parameter lab because the harness can't overwrite an HttpOnly Admin cookie), case-03 URL-based bypass (X-Original-URL: /admin, validates Clario note 10), case-04 method-based bypass (POST 401 -> GET 200), case-05 multi-step (replay the confirmed=true final step as low-priv). Files in `evals/access-control/`.
 - [x] 7. Iterate: no skill gap surfaced; every lab solved directly from the documented methodology. Harness notes recorded (fetch can't set Cookie/overwrite HttpOnly cookie -> cookie-value labs need Burp; some bypasses mutate state while returning non-2xx, confirm effect not status).
 - [x] sources.md
-- [ ] Committed (skill + README.md + evals + source/note 19, pending this commit)
+- [x] Committed (ccb47d0, 2026-11-19: skill + 5 refs + sources.md + evals 5/5 + README.md + source/note 19; pushed to github AmanJ24/claude-bountycraft-skills)
+
+### SQL Injection (in progress, started 2026-11-19)
+- [x] 1. Find + 2. Filter: 24 candidates in `sources/sqli/_candidates.md`. Scope = classic SQLi end to end (in-band error/UNION, blind boolean/time, OOB/OAST, second-order, contexts incl. header/JSON/GraphQL/ORDER BY, auth bypass, WAF/filter bypass incl. JSON-operator, DBMS-specific escalation to file-read/RCE). NoSQLi cross-referenced, deferred to a future skill. 10 references (PortSwigger x4, HackTricks, YesWeHack, Claroty JSON-WAF, OWASP WAF-bypass, Invicti cheat/OOB) + 8 disclosed H1 findings + 6 technique writeups.
+- [~] 3. Scrape (inline as Opus per model rule, no Sonnet 5.5 subagents): 9/24 done: 01 PS topic, 02 PS UNION, 03 PS blind, 04 PS cheat-sheet, 06 yeswehack, 07 claroty-json-waf, 12 h1-435066-graphql (Critical 10.0, SET SESSION context, pg_sleep), 19 velstadt-mssql-rce (error->sqlmap->xp_cmdshell, CVSS 10). TODO: 05 hacktricks, 08 owasp-waf-bypass, 09 invicti-cheat, 10 invicti-oob, 11 h1-273946-grab-formidable, 13 h1-1046084-union, 14 h1-1081145-impresscms-boolean, 15 h1-1109311-acronis-authbypass, 16 h1-923020-acronis, 17 h1-2597543-dod-blind, 18 h1-2599826-dod-useragent, 20 0x3adly-rce, 21 netspi-secondorder-oob, 22 vaadata-waf, 23 iw-boolean-bootcamp, 24 boumriga-timebased-ghauri. (Expect some H1 sign-in walls.)
+- [ ] 4. Extract
+- [ ] 5. Synthesize (SKILL.md + 5 refs + sources.md)
+- [ ] 6. Test (PortSwigger SQLi labs: login bypass, UNION column-count/text/data, examine-DB, blind conditional/error/time/OAST, XML-encoding filter bypass; Burp MCP enables OAST labs when connected)
+- [ ] 7. Iterate
+- [ ] sources.md
+- [ ] Committed
 
 ### Backlog
-- [ ] SQLi
 - [ ] SSTI
 - Note (2026-11-17): user added Burp MCP -> single-packet attack (race), Collaborator/OOB (blind SSRF), Intruder (blind SQLi) now possible for evals. Offer to retro-validate race limit-overrun green banner.
 
