@@ -18,4 +18,8 @@
   - Title: Privilege escalation from any user (including external) to gitlab admin when admin impersonates you
   - Author: skavans
   - URL: https://hackerone.com/reports/493324
-  - Date: 2019-02-09 (disclosed 2020-08
+  - Date: 2019-02-09 (reported; disclosed 2020-08-26)
+  - Disclosed report: https://hackerone.com/reports/493324
+  - Raw file: `sources/access-control/12-h1-493324-gitlab-privesc.md`
+
+Tags: vertical-privesc, impersonation, session-leak, session-id-exposed, cookie-replay, admin-takeover, ui-required
